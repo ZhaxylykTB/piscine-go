@@ -1,1 +1,2 @@
-ls -l | grep -v ^l | wc -l
+#!/bin/bash
+find . -name \* | wc -l
