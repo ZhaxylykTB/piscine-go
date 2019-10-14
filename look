@@ -1,2 +1,2 @@
-find -name "a*z"
-find -name "z*a"
+find -name "a-z*"
+find -name "z-a!"
