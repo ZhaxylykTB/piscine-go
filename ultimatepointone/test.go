@@ -12,4 +12,3 @@ func main() {
 	piscine.UltimatePointOne(&n)
 	fmt.Println(a)
 }
-

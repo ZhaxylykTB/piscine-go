@@ -7,4 +7,3 @@ func UltimatePointOne(n ***int) {
 	var p3 ***int = &p2
 	***n = ***p3
 }
-
