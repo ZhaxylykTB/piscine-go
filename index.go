@@ -1,37 +1,39 @@
 package piscine
 
 func Index(s string, toFind string) int {
-	len := 0
-	c := 0
-	for i := range toFind {
-		if i == i {
-			len++
-		}
-	}
-	for _, j := range toFind {
-		for i2, j2 := range s {
-			if j == j2 {
-				if len > 1 {
-					for k := 0; k < len; k++ {
-						if s[i2+k] == toFind[k] {
-							c++
-						} else {
-							return -1
+	strAsByte := []rune(s)
+	toFindByte := []rune(toFind)
+	indexFind := -1
+	if toFind == "" {
+		indexFind = 0
+	} else {
+		for index, letter := range strAsByte {
+			if letter == toFindByte[0] {
+				j := 0
+				count := 0
+				if index+StrLenn(toFind) <= StrLenn(s) {
+					for i := index; i < StrLenn(toFind); i++ {
+						if strAsByte[i] == toFindByte[j] {
+							count++
 						}
+						j++
 					}
-					if c == len {
-						return i2
+					if count == j {
+						indexFind = index
+						break
 					}
-				} else if len == 1 {
-					return i2
-				} else {
-					return -1
 				}
 			}
 		}
-		if c <= 0 {
-			return -1
-		}
 	}
-	return len
+	return indexFind
+}
+
+func StrLenn(str string) int {
+	var count int
+	strAsByte := []rune(str)
+	for index := range strAsByte {
+		count = index + 1
+	}
+	return count
 }
