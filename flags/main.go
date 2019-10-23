@@ -7,14 +7,13 @@ import (
 )
 
 func main() {
-	help := "--insert\n  -i\n\t This flag inserts the string into the string passed as argument.\n--order\n  -o\n\t This flag will behave like a boolean, if it is called it will order the argument.\n"
+	help := "--insert\n  -i\n\t This flag inserts the string into the string passed as argument.\n--order\n  -o\n\t This flag will behave like a boolean, if it is called it will order the argument."
 	arguments := os.Args
 	str := ""
-	strInsert := ""
 	strForOrder := ""
-	strI := ""
 	strForInsert := ""
 	argIndex := 0
+	o := 0
 	for indx := range arguments {
 		argIndex = indx + 1
 	}
@@ -24,9 +23,12 @@ func main() {
 		arg := []string(arguments[1:])
 		for index, flag := range arg {
 			len := 0
+
 			for indx := range flag {
 				len = indx + 1
 			}
+			strInsert := ""
+			strI := ""
 			if len > 8 {
 				strTemp := flag
 				strInsert = string(strTemp[:9])
@@ -52,23 +54,38 @@ func main() {
 					}
 				}
 			}
-			if flag == "--order" || flag == "-o" {
-				strForOrder += string(arg[index+1])
+			if flag == "--order" || flag == "-o" && argIndex-1 > index+1 {
+				strForOrder = string(arg[index+1])
+				o = 1
 			}
 			if flag == "--help" || flag == "-h" {
 				str = help
 				break
 			}
-			if flag != strForOrder {
-				str = flag
+			if flag == strForOrder || flag == "--order" || flag == "-o" || strInsert == "--insert=" || strI == "-i=" {
+				str += ""
+			} else {
+				str += string(flag)
 			}
+			//for _, r := range str {
+			//	z01.PrintRune(r)
+			//}
+			//z01.PrintRune('\n')
 		}
 	}
-	if strForOrder != "" {
-		str += SortStr(strForOrder + strForInsert)
+	if o == 1 {
+		str = SortStr(str + strForOrder + strForInsert)
 	} else if strForInsert != "" {
 		str += strForInsert
 	}
+	//for _, r := range strForInsert {
+	//	z01.PrintRune(r)
+	//}
+	//z01.PrintRune('\n')
+	//for _, r := range strForOrder {
+	//	z01.PrintRune(r)
+	//}
+	//z01.PrintRune('\n')
 	for _, r := range str {
 		z01.PrintRune(r)
 	}
